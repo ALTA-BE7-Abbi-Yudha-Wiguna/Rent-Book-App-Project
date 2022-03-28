@@ -5,6 +5,7 @@ import (
 	_entities "rentBook/entities"
 	bookRepository "rentBook/repository/book"
 	_rentRepository "rentBook/repository/rent"
+	"time"
 )
 
 type RentUseCase struct {
@@ -49,10 +50,11 @@ func (ruc *RentUseCase) ReturnBook(rent _entities.Rent) error {
 	}
 
 	rentbook.StatusRent = "Sudah Dikembalikan"
+	rentbook.TanggalPengembalian = time.Now()
 	ruc.RentRepository.ReturnBook(rentbook)
 
 	book.Status = "Available"
-	ruc.BookRepository.UpdateBook(int(rent.BookID), book)
+	ruc.BookRepository.UpdateBook(int(rentbook.BookID), book)
 
 	return err
 }
