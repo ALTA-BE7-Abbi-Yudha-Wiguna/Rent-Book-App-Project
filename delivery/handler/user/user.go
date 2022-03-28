@@ -57,7 +57,7 @@ func (uh *UserHandler) CreateUser() echo.HandlerFunc {
 
 func (uh *UserHandler) DeleteUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var id, _ = strconv.Atoi(c.Param("id"))
+		var id = middlewares.ExtractToken(c)
 
 		err := uh.userUseCase.DeleteUser(id)
 		if err != nil {
