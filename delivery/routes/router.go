@@ -19,7 +19,7 @@ func RegisterPath(e *echo.Echo, uh *_userHandler.UserHandler, bh *book.BookHandl
 	e.GET("/users/profile", uh.GetUserById(), _middlewares.JWTMiddleware())
 	e.POST("/users", uh.CreateUser())
 	e.DELETE("/users", uh.DeleteUser(), _middlewares.JWTMiddleware())
-	e.PUT("/users/:id", uh.UpdateUser(), _middlewares.JWTMiddleware())
+	e.PUT("/users", uh.UpdateUser(), _middlewares.JWTMiddleware())
 
 	e.GET("/books", bh.GetAllHandler())
 	e.GET("/books/:id", bh.GetBookById())

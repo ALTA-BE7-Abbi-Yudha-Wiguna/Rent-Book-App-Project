@@ -7,7 +7,6 @@ import (
 	"rentBook/delivery/middlewares"
 	_entities "rentBook/entities"
 	_userUseCase "rentBook/usecase/user"
-	"strconv"
 )
 
 type UserHandler struct {
@@ -69,7 +68,7 @@ func (uh *UserHandler) DeleteUser() echo.HandlerFunc {
 
 func (uh *UserHandler) UpdateUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		var id, _ = strconv.Atoi(c.Param("id"))
+		var id = middlewares.ExtractToken(c)
 		var users _entities.User
 		c.Bind(&users)
 
