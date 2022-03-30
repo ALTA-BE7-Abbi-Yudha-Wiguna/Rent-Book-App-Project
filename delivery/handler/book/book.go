@@ -59,8 +59,9 @@ func (bh *BookHandler) CreateBook() echo.HandlerFunc {
 func (bh *BookHandler) DeleteBook() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var id, _ = strconv.Atoi(c.Param("id"))
+		var userID = middlewares.ExtractToken(c)
 
-		err := bh.bookUseCase.DeleteBook(id)
+		err := bh.bookUseCase.DeleteBook(id, userID)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
 		}

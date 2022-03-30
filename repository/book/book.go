@@ -46,12 +46,14 @@ func (br *BookRepository) CreateBook(book _entities.Book) error {
 
 }
 
-func (br *BookRepository) DeleteBook(id int) error {
+func (br *BookRepository) DeleteBook(id, userID int) error {
 	var books _entities.Book
-	tx := br.database.Where("id = ?", id).Delete(&books)
-	if tx.Error != nil {
-		return tx.Error
+	err := br.database.Where("id =? and user_id = ?", id, userID).First(&books).Error
+	if err != nil {
+		return err
 	}
+	br.database.Delete(&books)
+	
 	return nil
 
 }
