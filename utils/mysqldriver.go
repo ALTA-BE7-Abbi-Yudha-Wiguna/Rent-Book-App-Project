@@ -2,7 +2,9 @@ package utils
 
 import (
 	"fmt"
+
 	"github.com/labstack/gommon/log"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"rentBook/config"
 	"rentBook/entities"
