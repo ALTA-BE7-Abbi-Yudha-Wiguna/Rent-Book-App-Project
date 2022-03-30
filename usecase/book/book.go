@@ -31,8 +31,8 @@ func (buc *BookUseCase) CreateBook(book _entities.Book) error {
 	return err
 }
 
-func (buc *BookUseCase) DeleteBook(id int) error {
-	err := buc.BookRepository.DeleteBook(id)
+func (buc *BookUseCase) DeleteBook(id, userID int) error {
+	err := buc.BookRepository.DeleteBook(id, userID)
 	return err
 }
 
