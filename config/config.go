@@ -1,8 +1,9 @@
 package config
 
 import (
+	"github.com/joho/godotenv"
 	"github.com/labstack/gommon/log"
-	"github.com/spf13/viper"
+	"os"
 	"sync"
 )
 
@@ -33,28 +34,27 @@ func GetConfig() *AppConfig {
 }
 
 func initConfig() *AppConfig {
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Infof("can't read file env: %s", err)
+	}
+
 	var defaultConfig AppConfig
 	defaultConfig.Port = 8000
-	defaultConfig.Database.Driver = "mysql"
-	defaultConfig.Database.Name = "be7"
-	defaultConfig.Database.Address = "localhost"
+	defaultConfig.Database.Driver = getEnv("DRIVER", "mysql")
+	defaultConfig.Database.Name = getEnv("DB_NAME", "be7")
+	defaultConfig.Database.Address = getEnv("ADDRESS", "localhost")
 	defaultConfig.Database.Port = 3306
-	defaultConfig.Database.Username = "root"
-	defaultConfig.Database.Password = ""
+	defaultConfig.Database.Username = getEnv("DB_USERNAME", "admin")
+	defaultConfig.Database.Password = getEnv("DB_PASSWORD", "admin123")
 
-	viper.SetConfigType("yaml")
-	viper.SetConfigName("config")
-	viper.AddConfigPath("./config/")
-	if err := viper.ReadInConfig(); err != nil {
-		log.Info("failed to open file")
-		return &defaultConfig
-	}
+	return &defaultConfig
+}
 
-	var finalConfig AppConfig
-	err := viper.Unmarshal(&finalConfig)
-	if err != nil {
-		log.Info("failed to extract external config, use default value")
-		return &defaultConfig
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
 	}
-	return &finalConfig
+	return fallback
 }
