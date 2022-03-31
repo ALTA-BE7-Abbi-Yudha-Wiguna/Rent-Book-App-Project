@@ -27,7 +27,7 @@ import (
 	_routes "rentBook/delivery/routes"
 	_utils "rentBook/utils"
 )
-//main
+
 func main() {
 
 	configs := config.GetConfig()
