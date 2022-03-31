@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"sync"
+	"fmt"
 )
 
 type AppConfig struct {
