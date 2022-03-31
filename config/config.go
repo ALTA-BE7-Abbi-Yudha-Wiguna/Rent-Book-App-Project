@@ -35,7 +35,7 @@ func GetConfig() *AppConfig {
 func initConfig() *AppConfig {
 
 	var defaultConfig AppConfig
-	defaultConfig.Port = os.Getenv("APP_PORT")
+	defaultConfig.Port = os.Getenv("PORT")
 	defaultConfig.Database.Driver = os.Getenv("DB_DRIVER")
 	defaultConfig.Database.Name = os.Getenv("DB_NAME")
 	defaultConfig.Database.Address = os.Getenv("ADDRESS")
