@@ -1,19 +1,17 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
-	"github.com/labstack/gommon/log"
 	"os"
 	"sync"
 )
 
 type AppConfig struct {
-	Port     int `yaml:"port"`
+	Port     string `yaml:"port"`
 	Database struct {
 		Driver   string `yaml:"driver"`
 		Name     string `yaml:"name"`
 		Address  string `yaml:"address"`
-		Port     int    `yaml:"port"`
+		Port     string `yaml:"port"`
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
 	}
@@ -35,26 +33,14 @@ func GetConfig() *AppConfig {
 
 func initConfig() *AppConfig {
 
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Infof("can't read file env: %s", err)
-	}
-
 	var defaultConfig AppConfig
-	defaultConfig.Port = 8080
-	defaultConfig.Database.Driver = getEnv("DRIVER", "mysql")
-	defaultConfig.Database.Name = getEnv("DB_NAME", "be7")
-	defaultConfig.Database.Address = getEnv("ADDRESS", "localhost")
-	defaultConfig.Database.Port = 3306
-	defaultConfig.Database.Username = getEnv("DB_USERNAME", "admin")
-	defaultConfig.Database.Password = getEnv("DB_PASSWORD", "admin123")
+	defaultConfig.Port = os.Getenv("APP_PORT")
+	defaultConfig.Database.Driver = os.Getenv("DB_DRIVER")
+	defaultConfig.Database.Name = os.Getenv("DB_NAME")
+	defaultConfig.Database.Address = os.Getenv("ADDRESS")
+	defaultConfig.Database.Port = os.Getenv("DB_PORT")
+	defaultConfig.Database.Username = os.Getenv("DB_USERNAME")
+	defaultConfig.Database.Password = os.Getenv("DB_PASSWORD")
 
 	return &defaultConfig
-}
-
-func getEnv(key, fallback string) string {
-	if value, ok := os.LookupEnv(key); ok {
-		return value
-	}
-	return fallback
 }
