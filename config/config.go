@@ -41,7 +41,7 @@ func initConfig() *AppConfig {
 	}
 
 	var defaultConfig AppConfig
-	defaultConfig.Port = 8000
+	defaultConfig.Port = 8080
 	defaultConfig.Database.Driver = getEnv("DRIVER", "mysql")
 	defaultConfig.Database.Name = getEnv("DB_NAME", "be7")
 	defaultConfig.Database.Address = getEnv("ADDRESS", "localhost")
