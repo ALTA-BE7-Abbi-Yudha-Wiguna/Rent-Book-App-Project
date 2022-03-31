@@ -9,6 +9,6 @@ WORKDIR /app
 #copy all files
 COPY ./ /app
 
-RUN go build -o main .
+RUN go build -o alta-api
 
-CMD [ "/app/main" ]
+CMD ./alta-api
