@@ -57,5 +57,5 @@ func main() {
 	_routes.RegisterAuthPath(e, authHandler)
 
 	_routes.RegisterPath(e, userHandler, bookHand, rentHand)
-	log.Fatal(e.Start(fmt.Sprintf(":%d", configs.Port)))
+	log.Fatal(e.Start(fmt.Sprintf(":%v", configs.Port)))
 }
