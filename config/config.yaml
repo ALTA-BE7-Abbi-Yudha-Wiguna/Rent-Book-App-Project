@@ -3,6 +3,6 @@ Database:
   Port: 3306
   Driver: "mysql"
   Name: "rent"
-  Address: "127.0.0.1"
-  Username: "root"
+  Address: "database-be7.c5mcub6x2b1y.ap-southeast-1.rds.amazonaws.com"
+  Username: "admin"
   Password: "admin123"
