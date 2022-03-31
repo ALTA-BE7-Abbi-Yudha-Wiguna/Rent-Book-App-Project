@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-
+//mIN
 	configs := config.GetConfig()
 	db := _utils.InitDB(configs)
 
