@@ -41,6 +41,6 @@ func initConfig() *AppConfig {
 	defaultConfig.Database.Port = os.Getenv("DB_PORT")
 	defaultConfig.Database.Username = os.Getenv("DB_USERNAME")
 	defaultConfig.Database.Password = os.Getenv("DB_PASSWORD")
-
+	fmt.Println(defaultConfig)
 	return &defaultConfig
 }
